@@ -1,8 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import { Box, Container, Divider, makeStyles } from "@material-ui/core";
+import { unwrapResult } from "@reduxjs/toolkit";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../AuthSlice";
 import LoginForm from "./components/LoginForm";
 import OptionsLogin from "./components/OptionsLogin";
-import { Box, Container, Divider, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +24,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Login = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleOnSubmit = (values) => {
-    console.log(values);
+  const [loginStatus, setLoginStatus] = useState("");
+
+  const handleOnSubmit = async (values) => {
+    try {
+      console.log(values);
+
+      const action = login(values);
+      const resultAction = await dispatch(action);
+      const user = unwrapResult(resultAction);
+
+      setLoginStatus(user.message);
+
+      console.log(user);
+    } catch (error) {
+      // error
+      console.log(error);
+      setLoginStatus(error.message);
+    }
   };
   return (
     <Container maxWidth="sm" className={classes.root}>
@@ -36,7 +55,7 @@ const Login = (props) => {
         </Box>
         <Divider className={classes.shareWidth} />
       </Box>
-      <LoginForm onSubmit={handleOnSubmit} />
+      <LoginForm loginStatus={loginStatus} onSubmit={handleOnSubmit} />
     </Container>
   );
 };

@@ -15,7 +15,6 @@ const PasswordField = (props) => {
   const { form, name, label, disabled } = props;
   const { formState } = form;
   const errorTitle = formState.errors[name]?.message;
-  console.log("ERROR: ", errorTitle);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);

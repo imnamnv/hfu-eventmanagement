@@ -1,10 +1,4 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-import { useForm } from "react-hook-form";
-import InputField from "../../../../components/FormControl/InputField";
 import {
   Box,
   Button,
@@ -13,8 +7,13 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import PasswordField from "../../../../components/FormControl/PasswordField";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import InputField from "../../../../components/FormControl/InputField";
+import PasswordField from "../../../../components/FormControl/PasswordField";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -32,17 +31,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LoginForm = (props) => {
   const classes = useStyles();
-  const { onSubmit, error } = props;
+  const { onSubmit, loginStatus } = props;
 
   const [rememberLogin, setRememberLogin] = useState(false);
 
   const schema = yup.object().shape({
-    name: yup.string().required("enter name"),
+    username: yup.string().required("enter name"),
     password: yup.string().required("enter password"),
   });
   const form = useForm({
     defaultValues: {
-      name: "",
+      username: "",
       password: "",
     },
     resolver: yupResolver(schema),
@@ -60,8 +59,9 @@ const LoginForm = (props) => {
   };
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
-      <InputField name="name" label="Name" form={form}></InputField>
+      <InputField name="username" label="Name" form={form}></InputField>
       <PasswordField name="password" label="Password" form={form} />
+      <span>{loginStatus}</span>
       <Typography>
         <Link href="#" to="/" onClick={preventDefault} className={classes.link}>
           Forgot your password ?
