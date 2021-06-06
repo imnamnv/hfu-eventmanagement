@@ -1,6 +1,7 @@
-import { makeStyles } from "@material-ui/core";
 import React from "react";
+import PropTypes from "prop-types";
 import ButtonOptions from "../../components/ButtonOptions";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,26 +10,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OptionsLogin = (props) => {
+const OptionsRegister = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <ButtonOptions
-        text="Login by Facebook"
+        text="Register by Facebook"
         listClassProps={["buttonBlue", "borderRadius"]}
       />
       <ButtonOptions
-        text="Login by Google"
-        listClassProps={["buttonWhite", "borderRadius"]}
-      />
-      <ButtonOptions
-        text="Login by Phone number"
+        text="Register by Google"
         listClassProps={["buttonWhite", "borderRadius"]}
       />
     </div>
   );
 };
 
-OptionsLogin.propTypes = {};
+OptionsRegister.propTypes = {};
 
-export default OptionsLogin;
+export default OptionsRegister;

@@ -33,7 +33,11 @@ axiosClient.interceptors.response.use(
 
     const { config, status, data } = error.response;
 
-    if (config.url === "/v1/authentication/login" && status === 403) {
+    if (
+      (config.url === "/v1/authentication/login" ||
+        config.url === "/v1/authentication/register") &&
+      status === 403
+    ) {
       const errorList = data.errors || [];
       const messageError = errorList[0]?.message;
       console.log("messageError: ", messageError);

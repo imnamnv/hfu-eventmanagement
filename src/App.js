@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import { Redirect, Route, Switch } from "react-router";
 import Login from "./features/Auth/Login";
+import Register from "./features/Auth/Register";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Redirect from="/home" to="/"></Redirect>
         {/* <Route path="/" exact component={Home}></Route> */}
         <Route path="/login" component={Login}></Route>
-        {/* <Route path="register" component={Register}></Route> */}
+        <Route path="/register" component={Register}></Route>
       </Switch>
     </div>
   );
